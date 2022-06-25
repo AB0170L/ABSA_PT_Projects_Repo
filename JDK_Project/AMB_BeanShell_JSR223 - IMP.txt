@@ -1,0 +1,23 @@
+BeanShellSampler
+========================
+for(int i=1; i<=Integer.parseInt(vars.get("FTAvailBal_matchNr")); i++)
+{
+vars.put("C_FTAvailBal" + i, vars.get("FTAvailBal_" + i).replaceAll(",",""));
+}
+
+
+JSR223 PostProcessor
+=======================
+List values = new ArrayList()
+for (int i=1; i <= (vars.get("FTAvailBal_matchNr") as int); i++) 
+{ 
+    values.add((vars.get("C_FTAvailBal" + i) as float))
+}
+
+vars.put("C_FTAvailBal_max", Collections.max(values) as String)
+log.info("*****************The index of Max value is: " + values.indexOf(Collections.max(values)));
+int j = values.indexOf(Collections.max(values)) + 1;
+log.info("*****************The ordinal of AccountNo is : " +j);
+log.info("*****************The Account is : " +vars.get("Actno_" +j));
+vars.put("Dynamic_Actno", vars.get("Actno_" +j));
+log.info("*****************The Variable Account is : " +vars.get("Dynamic_Actno"));
