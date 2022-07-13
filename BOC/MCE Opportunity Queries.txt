@@ -1,0 +1,33 @@
+View Opportunity  -- C_CRM_OPPORTUNITY
+
+SELECT distinct oppt FROM Opportunity oppt 
+			 LEFT JOIN FETCH oppt.activityHistory acthist
+		     LEFT JOIN FETCH oppt.opptOfferDetail opptOfferDetail
+		     INNER JOIN FETCH oppt.wave wave 
+		     INNER JOIN FETCH wave.campaign camp
+		     LEFT JOIN FETCH oppt.customer cust
+		     LEFT JOIN FETCH oppt.prospect pros
+		     LEFT JOIN FETCH camp.offer offer
+		     LEFT JOIN FETCH offer.fulfillments fmt
+		     LEFT JOIN FETCH fmt.fulfillmentFields
+		     LEFT JOIN FETCH camp.script scrpt
+			 LEFT JOIN FETCH oppt.referrer referrer
+			 LEFT JOIN FETCH oppt.team team
+		 WHERE 
+		     oppt.opportunityId =:opportunityId 
+		     and oppt.businessId = :businessId
+
+Delete Opportunity  -- C_CRM_OPPORTUNITY
+
+DELETE FROM Opportunity 
+				  WHERE opportunityId = :opportunityId AND 
+				  		businessId = :businessId AND 
+						modifyDate = :modifyDate AND
+						status = :status AND
+						sourceIndicator = :sourceIndicator
+						
+Add Opportunity
+	Hibernate inserting entity , PT team can use insert statement
+	
+Add Prospect
+	Hibernate inserting entity , PT team can use insert statement
